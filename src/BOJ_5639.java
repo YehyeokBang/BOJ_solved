@@ -2,81 +2,50 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
 import java.io.IOException;
 
-// 이진 검색 트리 - 못품
+// 이진 검색 트리
 public class BOJ_5639 {
-    public static int N;
-    public static Tree[] trees;
-    public static StringBuilder sb = new StringBuilder();
+    static Integer[] tree = new Integer[10001];
+    static StringBuilder sb = new StringBuilder();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
 
-        N = Integer.parseInt(br.readLine());
-        trees = new Tree[N];
-        String[] input = new String[3];
+        int index = 0; // 처음 입력 받을 때 사용하는 인덱스
 
-
-        for(int i = 0; i < N; i++) {
-            st = new StringTokenizer(br.readLine(), " ");
-            input[0] = st.nextToken();
-            input[1] = st.nextToken();
-            input[1] = input[1].equals(".") ? null : input[1];
-            input[2] = st.nextToken();
-            input[2] = input[2].equals(".") ? null : input[2];
-            trees[i] = new Tree(input[0], input[1], input[2]);
+        // EOF로 입력의 끝을 알려야 함, WINDOW : Ctrl + D
+        String input;
+        while((input = br.readLine()) != null) {
+            tree[index++] = Integer.parseInt(input);
         }
 
-        preorder(0);
+        postorder(0, index - 1);
 
+        // 출력
         bw.write(String.valueOf(sb));
-        bw.flush();
-
+        bw.close();
     }
 
-    public static class Tree {
-        private String node;
-        private String llink;
-        private String rlink;
-
-        public Tree(String n, String l, String r) {
-            this.node = n;
-            this.llink = l;
-            this.rlink = r;
+    /*
+        이진 검색 트리에서 왼쪽은 자신의 크기보다 작은 노드들만 있고,
+        오른쪽은 자신의 크기보다 큰 노드들만 있음 (문제 기준으로 중복은 없음)
+        => 제일 앞은 부모 노드로 하고 차례대로 보다가 부모보다 큰 노드를
+           발견하면 오른쪽 노드임
+     */
+    static public void postorder(int n, int end) {
+        if(n > end) {
+            return;
         }
 
-        public String getNode() {
-            return node;
+        int mid = n + 1;
+        while (mid <= end && tree[mid] < tree[n]) {
+            mid++;
         }
 
-        public String getLlink() {
-            return llink;
-        }
-
-        public String getRlink() {
-            return rlink;
-        }
-    }
-
-    public static void preorder(int n) {
-        sb.append(trees[n].getNode());
-        if(trees[n].getLlink() != null) {
-            for(int i = 0; i < N; i++) {
-                if(trees[i].getNode().equals(trees[n].getLlink())) {
-                    preorder(i);
-                }
-            }
-        }
-        else {
-            for(int i = 0; i < N; i++) {
-                if(trees[i].getLlink().equals(trees[n].getNode())) {
-                    preorder(i);
-                }
-            }
-        }
+        postorder(n + 1, mid - 1);
+        postorder(mid, end);
+        sb.append(tree[n]).append("\n");
     }
 }
