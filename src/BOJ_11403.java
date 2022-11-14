@@ -39,7 +39,6 @@ public class BOJ_11403 {
             }
             sb.append("\n");
         }
-
         bw.write(String.valueOf(sb));
         bw.close();
     }
