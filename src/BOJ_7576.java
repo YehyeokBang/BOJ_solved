@@ -7,8 +7,8 @@ import java.util.StringTokenizer;
 public class BOJ_7576 {
     static int N; // 상자의 가로 칸의 수
     static int M; // 상자의 가로 칸의 수
-    static int box[][]; // 토마토 저장할 상자
-    static int date[][]; // 토마토를 저장시킨 날짜를 저장
+    static int[][] box; // 토마토 저장할 상자
+    static int[][] date; // 토마토를 저장시킨 날짜를 저장
     static int minDate; // 최소 날짜
     static Queue<Node> queue = new LinkedList<Node>();
 
@@ -26,7 +26,7 @@ public class BOJ_7576 {
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < M; j++) {
-                box[i][j] = Integer.valueOf(st.nextToken());
+                box[i][j] = Integer.parseInt(st.nextToken());
                 // 익은 토마토 좌표를 Node 객체를 이용해서 큐에 넣기
                 if (box[i][j] == 1) {
                     Node node = new Node(i, j);
@@ -71,7 +71,7 @@ public class BOJ_7576 {
         Node node = null;
 
         // 큐가 빈 상태일 때까지 반복
-        while (queue.isEmpty() == false) {
+        while (!queue.isEmpty()) {
             // 익은 토마토의 좌표를 알아내고
             node = queue.poll();
             i = node.x;
