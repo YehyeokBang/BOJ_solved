@@ -17,7 +17,7 @@ public class BOJ_14501 {
         int[] pay = new int[n];
 
         // 소요 시간과 보상 저장
-        for (int i=0; i<n; i++) {
+        for (int i = 0; i < n; i++) {
             st = new StringTokenizer(reader.readLine());
 
             time[i] = Integer.parseInt(st.nextToken());
@@ -30,7 +30,7 @@ public class BOJ_14501 {
         // dp[i + t[i]] = max(dp[i + t[i]], dp[i] + p[i]);
         for (int i = 0; i < n; i++) {
             if (i + time[i] <= n) {
-                //날짜가 범위를 넘어가지 않는 경우
+                // 날짜가 범위를 넘어가지 않는 경우
                 dp[i + time[i]] = Math.max(dp[i + time[i]], dp[i] + pay[i]);
             }
             // 현재 경우의 수가 0일 수 있기 때문에 이전의 최대값을 저장
