@@ -3,7 +3,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.StringTokenizer;
 
-
+// 덱 2
 public class BOJ_28279 {
     static StringBuilder sb = new StringBuilder();
     static Deque<Integer> deque = new ArrayDeque<>();
