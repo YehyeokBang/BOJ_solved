@@ -14,8 +14,8 @@ public class BOJ_1543 {
         int wordLen = word.length();
 
         int cnt = 0;
-        for(int i=0; i<docLen-wordLen+1; i++) {
-            if(doc.substring(i, i+wordLen).equals(word)) {
+        for(int i = 0; i<docLen-wordLen + 1; i++) {
+            if(doc.substring(i, i + wordLen).equals(word)) {
                 cnt++;
                 i += wordLen-1;
             }
